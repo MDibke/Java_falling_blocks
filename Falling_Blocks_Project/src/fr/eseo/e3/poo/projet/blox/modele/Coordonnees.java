@@ -28,8 +28,12 @@ public class Coordonnees {
         return "(" + this.abscisse + "," + this.ordonnee + ")";
     }
 
-    public boolean equals(int abscisse, int ordonnee) {
-        return (this.abscisse == abscisse && this.ordonnee == ordonnee);
+    public boolean equals(Object o) {
+        if (o instanceof Coordonnees) {
+            Coordonnees c = (Coordonnees) o;
+            return this.abscisse == c.abscisse && this.ordonnee == c.ordonnee;
+        }
+        return false;
     }
 
     public int hashCode() {
