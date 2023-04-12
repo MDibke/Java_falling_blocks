@@ -36,6 +36,6 @@ public class CoordonneesTest {
     @Test
     public void toStringTest() {
         Coordonnees c1 = new Coordonnees(0, 0);
-        assertEquals("(0,0)", c1.toString());
+        assertEquals("(0, 0)", c1.toString());
     }
 }

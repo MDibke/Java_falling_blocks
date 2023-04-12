@@ -25,7 +25,7 @@ public class Coordonnees {
         this.ordonnee = ordonnee;
     }
     public String toString() {
-        return "(" + this.abscisse + "," + this.ordonnee + ")";
+        return "(" + this.abscisse + ", " + this.ordonnee + ")";
     }
 
     public boolean equals(Object o) {
@@ -37,6 +37,14 @@ public class Coordonnees {
     }
 
     public int hashCode() {
-        return this.abscisse + this.ordonnee;
+        int result = 1;
+        if (this.abscisse != 0) {
+            result = 31 * result + this.abscisse;
+
+        }
+        if (this.ordonnee != 0) {
+            result = 31 * result + this.ordonnee;
+        }
+        return result;
     }
 }
