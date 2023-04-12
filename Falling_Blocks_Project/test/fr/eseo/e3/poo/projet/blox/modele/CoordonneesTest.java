@@ -30,7 +30,6 @@ public class CoordonneesTest {
     @Test
     public void hashCodeTest() {
         Coordonnees c1 = new Coordonnees(0, 0);
-        Coordonnees c2 = new Coordonnees(1, 1);
         assertEquals(1, c1.hashCode());
     }
     @Test

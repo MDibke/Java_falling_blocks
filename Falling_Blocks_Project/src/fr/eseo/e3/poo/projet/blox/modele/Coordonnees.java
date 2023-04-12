@@ -37,6 +37,7 @@ public class Coordonnees {
         Coordonnees that = (Coordonnees) o;
         return abscisse == that.abscisse && ordonnee == that.ordonnee;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(abscisse, ordonnee);
