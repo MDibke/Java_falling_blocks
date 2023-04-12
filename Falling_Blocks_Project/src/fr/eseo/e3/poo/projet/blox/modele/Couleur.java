@@ -1,4 +1,11 @@
 package fr.eseo.e3.poo.projet.blox.modele;
 
-public class Couleur {
+public enum Couleur {
+        ROUGE,
+        ORANGE,
+        BLEU,
+        VERT,
+        JAUNE,
+        CYAN,
+        VIOLET;
 }
