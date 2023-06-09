@@ -5,7 +5,6 @@ import fr.eseo.e3.poo.projet.blox.modele.Coordonnees;
 import fr.eseo.e3.poo.projet.blox.modele.Couleur;
 import fr.eseo.e3.poo.projet.blox.modele.Element;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IPiece extends Piece {

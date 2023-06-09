@@ -44,17 +44,21 @@ public class Element {
         return "(" + this.coordonnees.getAbscisse() + ", " + this.coordonnees.getOrdonnee() + ") - "+ this.couleur;
     }
 
+    public void deplacerDe(int deltaX, int deltaY) {
+        setCoordonnees(new Coordonnees(getCoordonnees().getAbscisse() + deltaX,
+                getCoordonnees().getOrdonnee() + deltaY));
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Element) {
-            Element e = (Element) o;
-            return Objects.equals(this.coordonnees, e.coordonnees) && Objects.equals(this.couleur, e.couleur);
-        }
-        return false;
+        if (this == o) return true;
+        if (!(o instanceof Element)) return false;
+        Element element = (Element) o;
+        return Objects.equals(getCoordonnees(), element.getCoordonnees()) && getCouleur() == element.getCouleur();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(coordonnees, couleur);
+        return Objects.hash(getCoordonnees(), getCouleur());
     }
 }

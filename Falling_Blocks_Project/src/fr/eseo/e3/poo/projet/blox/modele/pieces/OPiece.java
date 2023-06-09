@@ -4,7 +4,6 @@ import fr.eseo.e3.poo.projet.blox.modele.Coordonnees;
 import fr.eseo.e3.poo.projet.blox.modele.Couleur;
 import fr.eseo.e3.poo.projet.blox.modele.Element;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OPiece extends Piece {
@@ -26,5 +25,10 @@ public class OPiece extends Piece {
     @Override
     public String toString() {
         return "OPiece :\n" + super.toString();
+    }
+
+    @Override
+    public void tourner(boolean sensHoraire) {
+        //Ne doit rien faire
     }
 }
