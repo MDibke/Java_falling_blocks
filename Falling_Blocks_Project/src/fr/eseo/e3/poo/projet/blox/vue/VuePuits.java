@@ -16,16 +16,17 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
     public static final int TAILLE_PAR_DEFAUT = 15;
     private Puits puits;
     private VuePiece vuePiece;
+    private final VueTas vueTas;
     private int taille;
     public PieceDeplacement pieceDeplacement;
     public PieceRotation pieceRotation;
 
     public VuePuits(Puits puits, int taille) {
-        super();
         setPuits(puits);
         setTaille(taille);
         setBackground(java.awt.Color.WHITE);
         this.puits.addPropertyChangeListener(this);
+        this.vueTas = new VueTas(this);
 
         pieceDeplacement = new PieceDeplacement(this);
         pieceRotation = new PieceRotation(this);
@@ -44,6 +45,10 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
 
     public VuePiece getVuePiece() {
         return this.vuePiece;
+    }
+
+    public VueTas getVueTas() {
+        return this.vueTas;
     }
 
     public Puits getPuits() {
@@ -95,6 +100,7 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
         if(this.vuePiece != null){
             this.vuePiece.afficherPiece(g2D);
         }
+        this.vueTas.afficher(g2D);
 
         /*Puis nous liberons la memoire*/
         g2D.dispose();

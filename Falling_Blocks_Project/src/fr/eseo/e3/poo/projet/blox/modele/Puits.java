@@ -5,6 +5,8 @@ import fr.eseo.e3.poo.projet.blox.modele.pieces.Piece;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import static fr.eseo.e3.poo.projet.blox.modele.UsineDePiece.genererPiece;
+
 public class Puits {
     public static final int LARGEUR_PAR_DEFAUT = 10;
     private int nbElements;
@@ -70,6 +72,7 @@ public class Puits {
         }
         Piece anciennePieceSuivante = this.pieceSuivante;
         this.pieceSuivante = pieceSuivante;
+        this.pieceSuivante.setPuits(this);
         pcs.firePropertyChange(MODIFICATION_PIECE_SUIVANTE, anciennePieceSuivante, this.pieceSuivante);
     }
 
@@ -119,5 +122,22 @@ public class Puits {
     
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.removePropertyChangeListener(listener);
+    }
+
+    private void gererCollision () {
+        this.tas.ajouterElements(pieceActuelle);
+        this.setPieceSuivante(genererPiece());
+    }
+
+    public void gravite() throws BloxException {
+        try {
+            this.pieceActuelle.deplacerDe(0, 1);
+        } catch (BloxException event) {
+            if (event.getType() == BloxException.BLOX_COLLISION) {
+                gererCollision();
+            } else {
+                throw event;
+            }
+        }
     }
 }

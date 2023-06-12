@@ -32,6 +32,7 @@ public class PieceRotation extends MouseAdapter implements MouseMotionListener {
             } catch (Exception e) {
                 System.out.println("Erreur lors de la rotation de la pièce");
             }
+            this.vuePuits.repaint();
         }
     }
 }

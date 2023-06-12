@@ -34,8 +34,8 @@ public class PieceDeplacementTest {
         puits.setPieceSuivante(piece2);
         //vuePuits.setVuePiece(new VuePiece(piece1, vuePuits.getTaille()));
 
-        //piece1.setPuits(puits);
-        //piece2.setPuits(puits);
+        piece1.setPuits(puits);
+        piece2.setPuits(puits);
 
         int largeur = (puits.getLargeur()+1) * vuePuits.getTaille();
         int profondeur = (puits.getProfondeur()+5) * vuePuits.getTaille();

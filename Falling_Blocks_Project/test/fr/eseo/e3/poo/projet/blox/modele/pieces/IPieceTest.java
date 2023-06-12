@@ -156,7 +156,7 @@ public class IPieceTest {
     }
 
     @Test
-    public void testTourner() {
+    public void testTourner() throws BloxException {
         	Coordonnees coordonnees = new Coordonnees(1, 2);
             Couleur couleur = Couleur.ROUGE;
             IPiece iPiece = new IPiece(coordonnees, couleur);
@@ -170,7 +170,7 @@ public class IPieceTest {
     }
 
     @Test
-    public void testTourner2() {
+    public void testTourner2() throws BloxException {
         	Coordonnees coordonnees = new Coordonnees(1, 2);
             Couleur couleur = Couleur.ROUGE;
             IPiece iPiece = new IPiece(coordonnees, couleur);
@@ -181,5 +181,42 @@ public class IPieceTest {
                     "\t(2, 2) - " + couleur + "\n";
             iPiece.tourner(false);
             assertEquals(expected, iPiece.toString(), "Test de la méthode tourner");
+    }
+
+    @Test
+    public void testTournerException() {
+        Puits puits = new Puits(10, 15);
+        IPiece iPiece = new IPiece(new Coordonnees(1, 2), Couleur.BLEU);
+        iPiece.setPuits(puits);
+        iPiece.setPosition(0, 0);
+        try {
+            iPiece.tourner(true);
+        } catch (BloxException e) {
+            assertEquals("La pièce est sortie du puits",
+                    e.getMessage(), "La pièce est sortie du puits");
+        }
+        iPiece.setPosition(puits.getLargeur(), 0);
+        try {
+            iPiece.tourner(true);
+        } catch (BloxException e) {
+            assertEquals("La pièce est sortie du puits",
+                    e.getMessage(), "La pièce est sortie du puits");
+        }
+        iPiece.setPosition(0, puits.getProfondeur());
+        try {
+            iPiece.tourner(true);
+        } catch (BloxException e) {
+            assertEquals("La pièce à atteint le fond tas",
+                    e.getMessage(), "La pièce à atteint le fond tas");
+        }
+        Puits puits1 = new Puits(10, 15, 29, 3);
+        iPiece.setPuits(puits1);
+        iPiece.setPosition(0, 12);
+        try {
+            iPiece.tourner(true);
+        } catch (BloxException e) {
+            assertEquals("La pièce entre en colision avec une autre pièce",
+                    e.getMessage(), "La pièce entre en colision avec une autre pièce");
+        }
     }
 }

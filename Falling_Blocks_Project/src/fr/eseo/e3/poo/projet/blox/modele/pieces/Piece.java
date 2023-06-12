@@ -1,10 +1,6 @@
 package fr.eseo.e3.poo.projet.blox.modele.pieces;
 
-import fr.eseo.e3.poo.projet.blox.modele.Coordonnees;
-import fr.eseo.e3.poo.projet.blox.modele.Couleur;
-import fr.eseo.e3.poo.projet.blox.modele.Element;
-import fr.eseo.e3.poo.projet.blox.modele.Puits;
-import fr.eseo.e3.poo.projet.blox.modele.BloxException;
+import fr.eseo.e3.poo.projet.blox.modele.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,22 +49,22 @@ public abstract class Piece {
     }
 
     public void deplacerDe(int deltaX, int deltaY) throws IllegalArgumentException, BloxException {
-        boolean exception = false;
+        boolean exceptionDeplacement = false;
         if(Math.abs(deltaX) > 1 || deltaY < 0) {
             throw new IllegalArgumentException("La nouvelle position doit être supérieure ou égale à zéro.");
             //throw new BloxException("La nouvelle position doit être supérieure ou égale à zéro.", BloxException.BLOX_SORTIE_PUITS);
         }
         else {
-            for (Element element : elements) {
+            for (Element element : this.elements) {
                 if (this.puits == null) {
-                    exception = true;
+                    exceptionDeplacement = true;
                 } else if (exeptionDeplacement(deltaX, deltaY, element)) {
-                    exception = true;
+                    exceptionDeplacement = true;
                 } else {
-                    exception = false;
+                    exceptionDeplacement = false;
                 }
             }
-            testDeplacerDe(exception, deltaX, deltaY);
+            testDeplacerDe(exceptionDeplacement, deltaX, deltaY);
         }
     }
 
@@ -87,8 +83,8 @@ public abstract class Piece {
                 int nextCoordX = element.getCoordonnees().getAbscisse() + deltaX;
                 int nextCoordY = element.getCoordonnees().getOrdonnee() + deltaY;
 
-                if(testColisionPuits(elementRefColonne, nextCoordX, nextCoordY) ||
-                        testSortiePuits(nextCoordX, nextCoordY)) {
+                if(testColisionPuitsDeplacer(elementRefColonne, nextCoordX, nextCoordY) ||
+                        testSortiePuitsDeplacer(nextCoordX, nextCoordY)) {
                     exception = true;
                 }
             }
@@ -96,7 +92,7 @@ public abstract class Piece {
         return !exception;
     }
 
-    private boolean testColisionPuits(Element element, int nextCoordX, int nextCoordY) throws BloxException {
+    private boolean testColisionPuitsDeplacer(Element element, int nextCoordX, int nextCoordY) throws BloxException {
         boolean exception = false;
         if (element != null) {
             if (element.getCoordonnees().equals(new Coordonnees(nextCoordX, nextCoordY)))   {
@@ -107,7 +103,7 @@ public abstract class Piece {
         return exception;
     }
 
-    private boolean testSortiePuits(int nextCoordX, int nextCoordY) throws BloxException {
+    private boolean testSortiePuitsDeplacer(int nextCoordX, int nextCoordY) throws BloxException {
         boolean exception = false;
         if (nextCoordX < 0 || nextCoordX >= this.puits.getLargeur()) {
             exception = true;
@@ -120,18 +116,24 @@ public abstract class Piece {
         return exception;
     }
 
-    public void tourner(boolean sensHoraire) {
-        boolean exception = false;
+    public void tourner(boolean sensHoraire) throws IllegalArgumentException, BloxException {
+        boolean exceptionTourner = false;
         Coordonnees newCoordonnees;
 
         // Iterate over all elements and rotate them around the pivot
         for (Element element : this.elements) {
             newCoordonnees = calculNewCoordonnees(sensHoraire, this.elements.get(0).getCoordonnees(), element.getCoordonnees());
             if(this.puits == null) {
-                exception = true;
+                exceptionTourner = true;
+            }
+            else if (exeptionTourner(newCoordonnees)) {
+                exceptionTourner = true;
+            }
+            else {
+                exceptionTourner = false;
             }
         }
-        testTourner(exception, sensHoraire);
+        testTourner(exceptionTourner, sensHoraire);
     }
 
     private void testTourner(boolean exception, boolean sensHoraire) {
@@ -142,6 +144,43 @@ public abstract class Piece {
                 element.setCoordonnees(newCoordonnees);
             }
         }
+    }
+
+    private boolean exeptionTourner(Coordonnees coordonneesTest) throws BloxException {
+        boolean exception = false;
+        for (Element[] elementRefLigne : this.puits.getTas().getElements()) {
+            for (Element elementRefColonne : elementRefLigne) {
+                if(testColisionPuitsTourner(elementRefColonne, coordonneesTest) ||
+                        testSortiePuitsTourner(coordonneesTest)) {
+                    exception = true;
+                }
+            }
+        }
+        return !exception;
+    }
+
+    private boolean testColisionPuitsTourner(Element element, Coordonnees coordonneesTest) throws BloxException {
+        boolean exception = false;
+        if (element != null) {
+            if (element.getCoordonnees().equals(coordonneesTest)) {
+                exception = true;
+                throw new BloxException("La pièce entre en colision avec une autre pièce", BloxException.BLOX_COLLISION);
+            }
+        }
+        return exception;
+    }
+
+    private boolean testSortiePuitsTourner(Coordonnees coordonneesTest) throws  BloxException {
+        boolean exception = false;
+        if (coordonneesTest.getAbscisse() < 0 || coordonneesTest.getAbscisse() >= this.puits.getLargeur()) {
+            exception = true;
+            throw new BloxException("La pièce est sortie du puits", BloxException.BLOX_SORTIE_PUITS);
+        }
+        if (coordonneesTest.getOrdonnee() >= this.puits.getProfondeur()) {
+            exception = true;
+            throw new BloxException("La pièce à atteint le fond tas", BloxException.BLOX_COLLISION);
+        }
+        return exception;
     }
 
     private Coordonnees calculNewCoordonnees(boolean sensHoraire, Coordonnees coordonneesPivot, Coordonnees coordonneesInitiale) {

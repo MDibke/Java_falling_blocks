@@ -35,6 +35,7 @@ public class PieceDeplacement extends MouseAdapter implements MouseMotionListene
                     System.out.println("Erreur lors du déplacement horizontal de la pièce");
                 }
             }
+            this.vuePuits.repaint();
         }
     }
 
@@ -76,6 +77,7 @@ public class PieceDeplacement extends MouseAdapter implements MouseMotionListene
                     System.out.println("Erreur lors du déplacement vertical de la pièce");
                 }
             }
+            this.vuePuits.repaint();
         }
     }
 }
