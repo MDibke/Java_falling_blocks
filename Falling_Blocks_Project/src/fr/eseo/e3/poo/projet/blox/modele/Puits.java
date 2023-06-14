@@ -31,8 +31,10 @@ public class Puits {
     public Puits(int largeur, int profondeur, int nbElements, int nbLignes) {
         setProfondeur(profondeur);
         setLargeur(largeur);
+        this.nbElements = nbElements;
+        this.nbLignes = nbLignes;
         this.pcs = new PropertyChangeSupport(this);
-        this.tas = new Tas(this, nbElements, nbLignes);
+        this.tas = new Tas(this, this.nbElements, this.nbLignes);
     }
 
     public Piece getPieceActuelle() {

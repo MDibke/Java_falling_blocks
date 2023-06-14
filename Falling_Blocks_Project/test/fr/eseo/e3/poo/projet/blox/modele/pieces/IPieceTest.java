@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static fr.eseo.e3.poo.projet.blox.modele.BloxException.BLOX_COLLISION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IPieceTest {
@@ -153,6 +154,25 @@ public class IPieceTest {
             throw new RuntimeException(e);
         }
         assertEquals(expected, iPiece.toString(), "Test de la méthode deplacerDe");
+    }
+
+    @Test
+    public void testDeplacerDe5() {
+        Coordonnees coordonnees = new Coordonnees(1, 2);
+        Couleur couleur = Couleur.ROUGE;
+        IPiece iPiece = new IPiece(coordonnees, couleur);
+        OPiece oPiece = new OPiece(coordonnees, couleur);
+        Puits puits = new Puits();
+        iPiece.setPuits(puits);
+        oPiece.setPuits(puits);
+        oPiece.setPosition(1,puits.getProfondeur()-1);
+        for (int i = 0 ; i < puits.getProfondeur() ; i++) {
+            try {
+                iPiece.deplacerDe(0, 1);
+            } catch (BloxException e) {
+                assertEquals(BLOX_COLLISION, e.getType(), "Test de la collision avec une autre pièce");
+            }
+        }
     }
 
     @Test

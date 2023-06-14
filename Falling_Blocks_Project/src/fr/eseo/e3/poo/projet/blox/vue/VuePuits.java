@@ -1,14 +1,15 @@
 package fr.eseo.e3.poo.projet.blox.vue;
 
+import fr.eseo.e3.poo.projet.blox.controleur.Gravite;
 import fr.eseo.e3.poo.projet.blox.controleur.PieceDeplacement;
 import fr.eseo.e3.poo.projet.blox.controleur.PieceRotation;
 import fr.eseo.e3.poo.projet.blox.modele.Puits;
 import fr.eseo.e3.poo.projet.blox.modele.pieces.Piece;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -20,6 +21,7 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
     private int taille;
     public PieceDeplacement pieceDeplacement;
     public PieceRotation pieceRotation;
+    private Gravite gravite;
 
     public VuePuits(Puits puits, int taille) {
         setPuits(puits);
@@ -112,5 +114,9 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
             Piece nouvellePiece = (Piece) event.getNewValue();
             this.setVuePiece(new VuePiece(nouvellePiece, this.taille));
         }
+    }
+
+    public void setGravite(Gravite gravite) {
+        this.gravite = gravite;
     }
 }

@@ -1,8 +1,14 @@
 package fr.eseo.e3.poo.projet.blox.modele;
 
 import fr.eseo.e3.poo.projet.blox.modele.pieces.IPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.JPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.LPiece;
 import fr.eseo.e3.poo.projet.blox.modele.pieces.OPiece;
 import fr.eseo.e3.poo.projet.blox.modele.pieces.Piece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.SPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.TPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.ZPiece;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,34 +39,58 @@ public class UsineDePieceTest {
     @Test
     public void testGenererPieceCyclic() {
         UsineDePiece.setMode(UsineDePiece.CYCLIC);
-        Piece piece1 = UsineDePiece.genererPiece();
-        Piece piece2 = UsineDePiece.genererPiece();
-        Piece piece3 = UsineDePiece.genererPiece();
-        assertTrue(piece1 instanceof OPiece, "Test si piece1 est une piece ce type OPiece");
-        assertTrue(piece2 instanceof IPiece, "Test si piece2 est une piece ce type IPiece");
-        assertTrue(piece3 instanceof OPiece, "Test si piece1 est une piece ce type OPiece");
+        Piece piece;
+        for(int i = 0; i < 7 ; i++) {
+            piece = UsineDePiece.genererPiece();
+            switch (i) {
+                case 0:
+                    assertTrue(piece instanceof OPiece, "Test si piece est une piece de type OPiece");
+                    break;
+                case 1:
+                    assertTrue(piece instanceof IPiece, "Test si piece est une piece de type IPiece");
+                    break;
+                case 2:
+                    assertTrue(piece instanceof TPiece, "Test si piece est une piece de type TPiece");
+                    break;
+                case 3:
+                    assertTrue(piece instanceof LPiece, "Test si piece est une piece de type LPiece");
+                    break;
+                case 4:
+                    assertTrue(piece instanceof JPiece, "Test si piece est une piece de type SPiece");
+                    break;
+                case 5:
+                    assertTrue(piece instanceof ZPiece, "Test si piece est une piece de type SPiece");
+                    break;
+                default:
+                    assertTrue(piece instanceof SPiece, "Test si piece est une piece de type SPiece");
+                    break;
+            }
+        }
     }
 
     @Test
     public void testGenererPieceComplet() {
         UsineDePiece.setMode(UsineDePiece.ALEATOIRE_COMPLET);
         Piece piece = UsineDePiece.genererPiece();
-        assertTrue(piece instanceof OPiece || piece instanceof IPiece,
-                "Test si piece est une piece de type OPiece ou IPiece");
+        assertTrue(piece instanceof OPiece || piece instanceof IPiece || piece instanceof TPiece ||
+                        piece instanceof LPiece || piece instanceof SPiece || piece instanceof ZPiece ||
+                        piece instanceof JPiece,"Test si piece est une piece de type OPiece ou IPiece");
     }
 
     @Test
     public void testGenererPiecePiece() {
         UsineDePiece.setMode(UsineDePiece.ALEATOIRE_PIECE);
         Piece piece = UsineDePiece.genererPiece();
-        assertTrue(piece instanceof OPiece || piece instanceof IPiece,
-                "Test si piece est une piece de type OPiece ou IPiece");
+        assertTrue(piece instanceof OPiece || piece instanceof IPiece || piece instanceof TPiece ||
+                        piece instanceof LPiece || piece instanceof SPiece || piece instanceof ZPiece ||
+                        piece instanceof JPiece,"Test si piece est une piece de type Piece");
     }
 
     @Test
     public void testGenererPiecePiece2() {
         Piece piece = UsineDePiece.genererPiece();
-        assertTrue(piece instanceof OPiece || piece instanceof IPiece,
-                "Test si piece est une piece de type OPiece ou IPiece");
+        assertTrue(piece instanceof OPiece || piece instanceof IPiece || piece instanceof TPiece ||
+                        piece instanceof LPiece || piece instanceof SPiece || piece instanceof ZPiece ||
+                        piece instanceof JPiece,"Test si piece est une piece de type Piece");
     }
 }

@@ -1,8 +1,13 @@
 package fr.eseo.e3.poo.projet.blox.modele;
 
 import fr.eseo.e3.poo.projet.blox.modele.pieces.IPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.JPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.LPiece;
 import fr.eseo.e3.poo.projet.blox.modele.pieces.OPiece;
 import fr.eseo.e3.poo.projet.blox.modele.pieces.Piece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.SPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.TPiece;
+import fr.eseo.e3.poo.projet.blox.modele.pieces.ZPiece;
 
 import java.util.Random;
 
@@ -10,17 +15,19 @@ public class UsineDePiece {
     public static final int CYCLIC = 1;
     public static final int ALEATOIRE_COMPLET = 2;
     public static final int ALEATOIRE_PIECE = 3;
-    private static int pieceCycleSelector = 0;
-    private static final int NOMBRE_PIECE = 2;
+    private static final int NOMBRE_PIECE = 7;
     private static Random random = new Random();
     private static int modeSelect = ALEATOIRE_PIECE;
+    private static int pieceCycleSelector = 0;
 
     private UsineDePiece() {
-
     }
 
     public static void setMode(int mode) {
         UsineDePiece.modeSelect = mode;
+        if(mode == CYCLIC) {
+            pieceCycleSelector = 0;
+        }
     }
 
     public static int getMode() {
@@ -43,7 +50,7 @@ public class UsineDePiece {
         return pieceReturned;
     }
 
-    static Piece genererPieceAleatoire(Couleur colorPiece) {
+    private static Piece genererPieceAleatoire(Couleur colorPiece) {
         int randomPiece = random.nextInt(NOMBRE_PIECE);
         return pieceSelector(randomPiece, colorPiece, false);
     }
@@ -53,19 +60,32 @@ public class UsineDePiece {
         Piece returnPiece;
         switch (randomPiece) {
             case 0:
-                if (cyclicMode)
-                    pieceCycleSelector = 1;
+                pieceCycleSelector = 1;
                 returnPiece = new OPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.ROUGE));
                 break;
             case 1:
-                if (cyclicMode)
-                    pieceCycleSelector = 2;
+                pieceCycleSelector = 2;
                 returnPiece = new IPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.ORANGE));
                 break;
+            case 2:
+                pieceCycleSelector = 3;
+                returnPiece = new TPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.BLEU));
+                break;
+            case 3:
+                pieceCycleSelector = 4;
+                returnPiece = new LPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.VERT));
+                break;
+            case 4:
+                pieceCycleSelector = 5;
+                returnPiece = new JPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.JAUNE));
+                break;
+            case 5:
+                pieceCycleSelector = 6;
+                returnPiece = new ZPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.CYAN));
+                break;
             default:
-                if (cyclicMode)
-                    pieceCycleSelector = 1;
-                returnPiece = new OPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.ROUGE));
+                pieceCycleSelector = 0;
+                returnPiece = new SPiece(initialCoordonnees, colorSelector(colorPiece, Couleur.VIOLET));
                 break;
         }
         return returnPiece;
@@ -79,7 +99,7 @@ public class UsineDePiece {
     }
 
     private static Couleur randomCouleur() {
-        int randomColor = random.nextInt(6);
+        int randomColor = random.nextInt(7);
         Couleur couleur;
         switch (randomColor) {
             case 0:

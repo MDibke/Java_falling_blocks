@@ -56,6 +56,23 @@ public class PuitsTest {
     }
 
     @Test
+    public void testSetElementsSetLignes() {
+        Puits puits = new Puits();
+        puits.setNbElements(10);
+        puits.setNbLignes(10);
+        assertEquals(10, puits.getNbElements(), "Test du nombre d'éléments du puits");
+        assertEquals(10, puits.getNbLignes(), "Test du nombre de lignes du puits");
+    }
+
+    @Test
+    public void testSetTas() {
+        Puits puits = new Puits();
+        Tas tas = new Tas(puits, 10, 10);
+        puits.setTas(tas);
+        assertEquals(tas, puits.getTas(), "Test du tas du puits");
+    }
+
+    @Test
     public void testSetProfondeur() {
         Puits puits = new Puits();
         puits.setProfondeur(16);
