@@ -78,33 +78,32 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
     }
 
     protected void paintComponent(Graphics g) {
+
+        // Methode de Romain C. pour eviter le bug 3.7.2
         super.paintComponent(g);
-        /* appel vers super pour remplir le fond du JPanel */
-        /*Le paramètre g est copie en utilisant la méthode copie()
-         * puis converti en instance de Graphics2D grâce à
-         * un transtypage (cast) explicite.
-         */
-        Graphics2D g2D = (Graphics2D) g.create();
-        /* Nous utiliserons l'instance de Graphics2D*/
+        Graphics2D g2D = (Graphics2D)g.create();
 
-        // Set background color as white
-        g2D.setColor(java.awt.Color.WHITE);
-        g2D.fillRect(0, 0, getWidth(), getHeight());
+        g2D.setColor(Color.WHITE);
+        g2D.fillRect(0, 0, puits.getLargeur()*taille, puits.getProfondeur()*taille);
 
-        // Draw grid as light gray lines
         g2D.setColor(Color.LIGHT_GRAY);
-        for (int x = 0; x < getWidth(); x += this.taille) {
-            for (int y = 0; y < getHeight(); y += this.taille) {
-                g2D.drawRect(x, y, this.taille, this.taille);
-            }
+        for (int i = 0; i<= puits.getLargeur(); i++){
+            int x = i * taille;
+            g2D.drawLine(x, 0, x, puits.getProfondeur() * taille);
+        }
+        for (int i = 0; i <= puits.getProfondeur(); i++) {
+            int y = i * taille;
+            g2D.drawLine(0, y, puits.getLargeur() * taille, y);
         }
 
-        if(this.vuePiece != null){
-            this.vuePiece.afficherPiece(g2D);
+        if (getVuePiece()!= null) {
+            getVuePiece().afficherPiece(g2D);
         }
-        this.vueTas.afficher(g2D);
 
-        /*Puis nous liberons la memoire*/
+        if (this.vueTas!= null){
+            this.vueTas.afficher(g2D);
+        }
+
         g2D.dispose();
     }
 
