@@ -38,7 +38,7 @@ public class UsineDePiece {
         Piece pieceReturned;
         switch (modeSelect) {
             case CYCLIC:
-                pieceReturned = pieceSelector(pieceCycleSelector, null, true);
+                pieceReturned = pieceSelector(pieceCycleSelector, null);
                 break;
             case ALEATOIRE_COMPLET:
                 pieceReturned = genererPieceAleatoire(randomCouleur());
@@ -52,10 +52,10 @@ public class UsineDePiece {
 
     private static Piece genererPieceAleatoire(Couleur colorPiece) {
         int randomPiece = random.nextInt(NOMBRE_PIECE);
-        return pieceSelector(randomPiece, colorPiece, false);
+        return pieceSelector(randomPiece, colorPiece);
     }
 
-    private static Piece pieceSelector(int randomPiece, Couleur colorPiece, boolean cyclicMode) {
+    private static Piece pieceSelector(int randomPiece, Couleur colorPiece) {
         Coordonnees initialCoordonnees = new Coordonnees(2, 3);
         Piece returnPiece;
         switch (randomPiece) {

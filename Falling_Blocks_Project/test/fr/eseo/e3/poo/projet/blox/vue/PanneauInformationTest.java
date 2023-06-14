@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PanneauInformationTest {
     @Test
-    public void PanneauInformation() {
+    public void testPanneauInformation() {
         PanneauInformation panneauInformation = new PanneauInformation(new Puits(10, 20));
         assertTrue(panneauInformation.getPreferredSize().getWidth() == 70);
     }
