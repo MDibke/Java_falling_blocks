@@ -75,6 +75,7 @@ public class Puits {
         Piece anciennePieceSuivante = this.pieceSuivante;
         this.pieceSuivante = pieceSuivante;
         this.pieceSuivante.setPuits(this);
+        this.getTas().lignePleine();
         pcs.firePropertyChange(MODIFICATION_PIECE_SUIVANTE, anciennePieceSuivante, this.pieceSuivante);
     }
 

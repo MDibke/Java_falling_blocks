@@ -51,4 +51,34 @@ public class Tas {
             }
         }
     }
+
+    public void lignePleine() {
+        boolean ligneFull = false;
+        int numeroLigneFull = this.puits.getProfondeur();
+        for (Element[] elementColone : this.getElements()) {
+            ligneFull = true;
+            for (Element elementLigne : elementColone) {
+                if (elementLigne == null) {
+                    ligneFull = false;
+                }
+            }
+            if (ligneFull) {
+                break;
+            }
+            numeroLigneFull--;
+        }
+        if (ligneFull) {
+            this.supprimerLigne(numeroLigneFull);
+        }
+    }
+
+    public void supprimerLigne(int profondeur) {
+        for(int i = this.puits.getProfondeur() - profondeur; i > 0; i--) {
+            for(int j = 0; j < this.puits.getLargeur(); j++) {
+                this.elements[i][j] = this.elements[i - 1][j];
+                if(this.elements[i][j] != null)
+                    this.elements[i][j].deplacerDe(0, 1);
+            }
+        }
+    }
 }
