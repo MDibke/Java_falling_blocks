@@ -109,6 +109,17 @@ public class PieceDeplacement extends MouseAdapter implements MouseMotionListene
             deltaX = 0;
             deltaY = 1;
         }
+        if(key.getKeyCode() == KeyEvent.VK_SPACE) {
+            boolean toucherFond = false;
+            while(!toucherFond) {
+                try {
+                    this.puits.getPieceActuelle().deplacerDe(0, 1);
+                    this.vuePuits.repaint();
+                } catch (Exception e) {
+                    toucherFond = true;
+                }
+            }
+        }
 
         try {
             this.puits.getPieceActuelle().deplacerDe(deltaX, deltaY);
