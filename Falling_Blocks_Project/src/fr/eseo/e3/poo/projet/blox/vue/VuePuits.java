@@ -32,13 +32,22 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
 
         pieceDeplacement = new PieceDeplacement(this);
         pieceRotation = new PieceRotation(this);
+
         //ajout du MouseMotionListener
         this.addMouseMotionListener(pieceDeplacement);
+
         //ajout du MouseListener
         this.addMouseListener(pieceDeplacement);
         this.addMouseListener(pieceRotation);
+
         //ajout du MouseWheelListener
         this.addMouseWheelListener(pieceDeplacement);
+
+        //ajout du KeyListener
+        this.addKeyListener(pieceRotation);
+        this.addKeyListener(pieceDeplacement);
+
+        this.setFocusable(true);
     }
 
     public VuePuits(Puits puits) {
@@ -117,5 +126,6 @@ public class VuePuits extends javax.swing.JPanel implements PropertyChangeListen
 
     public void setGravite(Gravite gravite) {
         this.gravite = gravite;
+        this.puits.setGravite(gravite);
     }
 }

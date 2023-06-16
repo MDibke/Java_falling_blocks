@@ -1,11 +1,13 @@
 package fr.eseo.e3.poo.projet.blox.modele;
 
+import fr.eseo.e3.poo.projet.blox.controleur.Gravite;
 import fr.eseo.e3.poo.projet.blox.modele.pieces.Piece;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import static fr.eseo.e3.poo.projet.blox.modele.UsineDePiece.genererPiece;
+import static fr.eseo.e3.poo.projet.blox.vue.VueScore.addScore;
 
 public class Puits {
     public static final int LARGEUR_PAR_DEFAUT = 10;
@@ -20,6 +22,7 @@ public class Puits {
     public static final String MODIFICATION_PIECE_SUIVANTE = "modification_piece_suivante";
     private PropertyChangeSupport pcs;
     private Tas tas;
+    private Gravite gravite;
 
     public Puits(int largeur, int profondeur) {
         this(largeur, profondeur,0,0);
@@ -130,6 +133,7 @@ public class Puits {
     private void gererCollision () {
         this.tas.ajouterElements(pieceActuelle);
         this.setPieceSuivante(genererPiece());
+        addScore(1);
     }
 
     public void gravite() throws BloxException {
@@ -142,5 +146,13 @@ public class Puits {
                 throw event;
             }
         }
+    }
+
+    public Gravite getGravite() {
+        return this.gravite;
+    }
+
+    public void setGravite(Gravite gravite) {
+        this.gravite = gravite;
     }
 }

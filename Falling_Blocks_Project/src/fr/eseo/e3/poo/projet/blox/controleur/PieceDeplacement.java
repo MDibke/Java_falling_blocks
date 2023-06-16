@@ -3,12 +3,18 @@ package fr.eseo.e3.poo.projet.blox.controleur;
 import fr.eseo.e3.poo.projet.blox.modele.Puits;
 import fr.eseo.e3.poo.projet.blox.vue.VuePuits;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 
-public class PieceDeplacement extends MouseAdapter implements MouseMotionListener {
+import static java.awt.event.KeyEvent.VK_D;
+import static java.awt.event.KeyEvent.VK_Q;
+import static java.awt.event.KeyEvent.VK_S;
+
+public class PieceDeplacement extends MouseAdapter implements MouseMotionListener, KeyListener {
     private VuePuits vuePuits;
     private Puits puits;
     private int derniereColonne;
@@ -79,5 +85,41 @@ public class PieceDeplacement extends MouseAdapter implements MouseMotionListene
             }
             this.vuePuits.repaint();
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent key) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent key) {
+        int deltaX = 0;
+        int deltaY = 0;
+
+        if (key.getKeyCode() == VK_Q) {
+            deltaX = -1;
+            deltaY = 0;
+        }
+        if (key.getKeyCode() == VK_D) {
+            deltaX = 1;
+            deltaY = 0;
+        }
+        if (key.getKeyCode() == VK_S) {
+            deltaX = 0;
+            deltaY = 1;
+        }
+
+        try {
+            this.puits.getPieceActuelle().deplacerDe(deltaX, deltaY);
+            this.vuePuits.repaint();
+        } catch (Exception e) {
+            System.out.println("Erreur lors du déplacement de la pièce");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent key) {
+
     }
 }

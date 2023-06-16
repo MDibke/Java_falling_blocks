@@ -47,6 +47,8 @@ public class PanneauInformation extends JPanel implements PropertyChangeListener
             repaint();
         }
 
+        VueScore.afficherScore(g2D);
+
         /*Puis nous liberons la memoire*/
         g2D.dispose();
     }

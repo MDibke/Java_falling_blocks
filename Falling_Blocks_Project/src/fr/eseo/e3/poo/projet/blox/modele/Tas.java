@@ -4,9 +4,13 @@ import fr.eseo.e3.poo.projet.blox.modele.pieces.Piece;
 
 import java.util.Random;
 
+import static fr.eseo.e3.poo.projet.blox.vue.VueScore.addScore;
+import static fr.eseo.e3.poo.projet.blox.vue.VueScore.getScore;
+
 public class Tas {
     private Puits puits;
     private Element[][] elements;
+    private  int scoreAcceleration = 10;
 
     public Tas(Puits puits, int nbElements, int nbLignes) {
         this.puits = puits;
@@ -63,12 +67,14 @@ public class Tas {
                 }
             }
             if (ligneFull) {
-                break;
+                this.supprimerLigne(numeroLigneFull);
+                addScore(10);
+                if(getScore() >= this.scoreAcceleration) {
+                    this.scoreAcceleration += 5;
+                    this.puits.getGravite().setPeriodicite(this.puits.getGravite().getPeriodicite() - 10);
+                }
             }
             numeroLigneFull--;
-        }
-        if (ligneFull) {
-            this.supprimerLigne(numeroLigneFull);
         }
     }
 

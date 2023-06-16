@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
 import static fr.eseo.e3.poo.projet.blox.modele.UsineDePiece.setMode;
+import static fr.eseo.e3.poo.projet.blox.vue.VueScore.setScore;
 
 public class FallingBloxVersion2 {
     private FallingBloxVersion2() {
@@ -19,6 +20,7 @@ public class FallingBloxVersion2 {
     public static void main(String[] args) {
         int largeur =10;
         int profondeur = 20;
+        setScore(0);
         Puits puits;
         switch (args.length) {
             case 1:
@@ -37,7 +39,7 @@ public class FallingBloxVersion2 {
         PanneauInformation panneauInformation = new PanneauInformation(puits);
 
         // Register VuePuits as listener of Puits
-        setMode(UsineDePiece.CYCLIC);
+        setMode(UsineDePiece.ALEATOIRE_COMPLET);
 
         Piece piece1 = UsineDePiece.genererPiece();
         Piece piece2 = UsineDePiece.genererPiece();
